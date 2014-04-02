@@ -1,0 +1,111 @@
+Apr 29, 2008
+release curlftpfs 0.9.2
+mail2nob
+
+Apr 29, 2008
+new helper function cancel_previous_multi() which checks for errors.
+mail2nob
+
+Apr 25, 2008
+bump configure.ac version 0.9.2; requires libcurl >=7.17.0
+mail2nob
+
+Apr 23, 2008 	
+add Makefile.cvs 
+mail2nob
+
+Apr 23, 2008
+patch by Miklos Szeredi: fixes 'du' for files >= 4GB. 
+mail2nob
+
+Jan 31, 2008
+Fix missing -liconv.  	
+robsonbraga
+
+Nov 29, 2007
+open(O_RDWR) --> fail with ENOTSUP  	
+mail2nob
+
+Nov 25, 2007
+remove buffered writes completely and handle O_RDWR  	
+mail2nob
+
+Nov 20, 2007	
+Fix "hang" when curl_easy_perform(fh->write_conn) in the write thread fails; Detect write errors in the write thread; Synchronize writing with the new semaphore "data_written" to be able to report write errors earlier; Fix that ftpfs_truncate created empty files with no permissions set (caused problems with gedit and others)
+mail2nob
+
+Nov 20, 2007	
+Patch from Miklos Szeredi to support streaming writes (includes changes from Robson Braga Araujo)
+mail2nob
+
+Jul 26, 2007	
+Added option to use a custom command to list files.
+robsonbraga
+
+Jun 28, 2007 	
+Add ftp_method option to make it faster to browse directories.
+robsonbraga
+
+Jun 28, 2007	
+Fix broken header dependencies.
+robsonbraga
+
+Jun 28, 2007	
+Put the FTP server name in fsname by default. Upgraded FUSE_USE_VERSION to 26.
+robsonbraga
+
+Jun 14, 2007 	
+Edited wiki page through web user interface.
+robsonbraga
+
+May 25, 2007 	
+Disable EPSV by default because it can cause the program to hang.
+robsonbraga
+
+Apr 05, 2007 	
+Edited wiki page through web user interface.
+robsonbraga
+
+Apr 05, 2007
+Tagging the 0.9.1 release.
+robsonbraga
+
+Apr 05, 2007
+Version 0.9.1.
+robsonbraga
+
+Apr 05, 2007
+Revert changes from revisions 68 and 69 that enabled uploads even for servers that don't support overwrite. This creates a problem that we say the file is created but things like GETATTR don't see it in the server. We may want to make getattr look at local attributes in the future to make this work. 	
+robsonbraga
+
+Feb 28, 2007
+Added option to be able to use SOCKS4/5 proxy. Only works with libcurl 7.16.2 or higher.
+robsonbraga
+
+Feb 27, 2007
+Added debug levels.
+robsonbraga
+
+Feb 14, 2007
+Generate a library so that tests don't have to compile files again.
+robsonbraga
+
+Feb 14, 2007
+Remove warnings.
+robsonbraga
+
+Feb 13, 2007 	
+Correct broken test.
+robsonbraga
+
+Feb 13, 2007
+Corrected bug doing assignment instead of comparison.
+robsonbraga
+
+Feb 13, 2007
+Added support for caching files not found, avoiding to do repeated access to the FTP server.
+robsonbraga
+
+Feb 10, 2007
+Revert last change. FUSE_USE_VERSION is already defined in Makefile.am but old automake doesn't get it.
+robsonbraga
