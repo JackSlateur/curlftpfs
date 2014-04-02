@@ -1,0 +1,122 @@
+curlftpfs (0.9.2-5) unstable; urgency=low
+
+  * Depends on fuse [linux-any] | fuse4bsd [kfreebsd-any] to allow
+    installation on kfreebsd-*. Closes: #634675.
+  * Bump Standards-Version to 3.9.2.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 30 Jul 2011 21:17:34 +0200
+
+curlftpfs (0.9.2-4) unstable; urgency=low
+
+  * Fix another memory leak, thanks to a patch from Tom Olexa.
+    Closes: #614347.
+  * Bump Standards-Version to 3.9.1.
+
+ -- Vincent Bernat <bernat@debian.org>  Tue, 22 Feb 2011 07:30:01 +0100
+
+curlftpfs (0.9.2-3) unstable; urgency=low
+
+  * Fix a memory leak, thanks to a patch from Stéphane Lesimple.
+    Closes: #587250.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 27 Jun 2010 22:39:30 +0200
+
+curlftpfs (0.9.2-2) unstable; urgency=low
+
+  * Adopt the package. Thanks to Ding Honghui for his previous work.
+    Closes: #570605.
+  * Acknowledge (delayed) NMU. Closes: #570555.
+  * Bump Standards-Version to 3.8.4.
+  * Switch Vcs-Browser to viewsvn.
+  * Switch to 3.0 (quilt) format.
+  * Update debian/copyright to new DEP5 format.
+  * Fix an incorrect use of CURLOPT_INFILESIZE option causing failures for
+    any file operation on amd64. Closes: #556012, #556013.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 21 Feb 2010 13:05:13 +0100
+
+curlftpfs (0.9.2-1) unstable; urgency=low
+
+  * New upstream release. (closes: #480320,#449207,#461455)
+  * Adopting the package (closes: #461806)
+  * debian/control:
+    - Updated Maintainer field.
+    - Update field Standards-Version from 3.7.3 to 3.8.0, no changes were
+    required.
+    - Remove libcurl-ssl-dev from field Build-Depends, because curlftpfs 0.9.2
+    need libcurl >= 7.17.0.
+  * debian/control.in removed
+
+ -- Ding Honghui <hhding@vobile.cn>  Mon, 04 Aug 2008 22:33:02 +0800
+
+curlftpfs (0.9.1-3) unstable; urgency=low
+
+  * Orphaning this package, see #461806 for details.
+  * debian/control.in: Set maintainer to Debian QA Group
+    <packages@qa.debian.org>.
+
+ -- Frank S. Thomas <fst@debian.org>  Mon, 21 Jan 2008 01:07:55 +0100
+
+curlftpfs (0.9.1-2) unstable; urgency=low
+
+  * debian/control:
+    - Added Vcs-{Svn,Browser} fields to the source stanza.
+    - Moved Homepage pseudo field in the long description to the source stanza
+      because this is now a propper debian/control field supported by dpkg.
+    - Bumped Standards-Version from 3.7.2 to 3.7.3, no changes were required.
+    - Changed my maintainer address to fst@debian.org.
+
+ -- Frank S. Thomas <fst@debian.org>  Thu, 06 Dec 2007 21:30:13 +0100
+
+curlftpfs (0.9.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Built against curl >= 7.16.1. (closes: #391009)
+    - Updated build dependency from libcurl3-gnutls-dev (>= 7.15.2) to
+      libcurl4-gnutls-dev. Strictly speaking a dependency on libcurl4-gnutls
+      (which is >= 7.16.2-3, because this was the first curl 7.16 version
+      uploaded to unstable) is not necessary, but there are bugs which
+      manifest with curl 7.15.5 and 7.16.0.
+
+ -- Frank S. Thomas <frank@thomas-alfeld.de>  Tue,  8 May 2007 09:39:29 +0200
+
+curlftpfs (0.9-2) unstable; urgency=low
+
+  * ftpfs-ls.c: Changed type of variable size from "long" to "unsigned long
+    long" in parse_dir_unix(). (closes: #394302)
+
+ -- Frank S. Thomas <frank@thomas-alfeld.de>  Sat, 21 Oct 2006 10:17:33 +0200
+
+curlftpfs (0.9-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/copyright:
+    - Added copyright note about the Debian packaging.
+
+ -- Frank S. Thomas <frank@thomas-alfeld.de>  Mon,  2 Oct 2006 19:16:14 +0200
+
+curlftpfs (0.8-2) unstable; urgency=low
+
+  * Initial upload to Debian. (closes: #376857)
+  * debian/control.in:
+    - Added libcurl3-openssl-dev to Build-Conflicts because CurlFtpFS is
+      licensed under the GPL without an OpenSSL exemption.
+
+ -- Frank S. Thomas <frank@thomas-alfeld.de>  Fri,  7 Jul 2006 11:57:53 +0200
+
+curlftpfs (0.8-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control.in:
+    - Bumped libcurl3-ssl-dev build dependency to 7.15.2.
+  * debian/watch:
+    - Use http://sf.net/curlftpfs/ as alias for the qa.debian.org redirector
+      as documented in uscan's manual page.
+
+ -- Frank S. Thomas <frank@thomas-alfeld.de>  Thu,  1 Jun 2006 13:01:41 +0200
+
+curlftpfs (0.7-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Frank S. Thomas <frank@thomas-alfeld.de>  Mon,  8 May 2006 15:48:10 +0200

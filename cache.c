@@ -25,7 +25,7 @@ struct cache {
     time_t last_cleaned;
 };
 
-static struct cache cache;
+struct cache cache;
 
 struct node {
     struct stat stat;

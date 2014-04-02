@@ -1,0 +1,24 @@
+Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
+Name: curlftpfs
+Maintainer: Vincent Bernat <bernat@debian.org>
+Source: http://curlftpfs.sourceforge.net
+
+Files: *
+Copyright: 2006-2007 Robson Braga Araujo <robsonbraga@gmail.com>
+           2004 Miklos Szeredi <miklos@szeredi.hu>
+License: GPL-2
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.
+
+Files: compat/fuse_opt.{c,h}
+Copyright: 2001-2006  Miklos Szeredi <miklos@szeredi.hu>
+License: LGPL-2
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/LGPL-2'.
+
+Files: debian/*
+Copyright: 2006-2007 Frank S. Thomas <fst@debian.org>
+           2010 Vincent Bernat <bernat@debian.org>
+License: GPL-2

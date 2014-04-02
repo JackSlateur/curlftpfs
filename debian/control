@@ -1,0 +1,25 @@
+Source: curlftpfs
+Section: utils
+Priority: optional
+Maintainer: Vincent Bernat <bernat@debian.org>
+Build-Depends: cdbs (>= 0.4.23-1.1), debhelper (>= 5),
+	       libglib2.0-dev, libcurl4-gnutls-dev, libfuse-dev
+Build-Conflicts: libcurl4-openssl-dev
+Standards-Version: 3.9.2
+Homepage: http://curlftpfs.sourceforge.net
+Vcs-Svn: svn://svn.debian.org/collab-maint/deb-maint/curlftpfs/trunk/
+Vcs-Browser: http://svn.debian.org/viewsvn/collab-maint/deb-maint/curlftpfs/trunk/
+
+Package: curlftpfs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, fuse [linux-any] | fuse4bsd [kfreebsd-any]
+Description: filesystem to access FTP hosts based on FUSE and cURL
+ CurlFtpFS is a tool to mount FTP hosts as local directories. It connects
+ to a FTP server and maps its directory structure to the local filesystem.
+ .
+ Based on FUSE (filesystem in userspace) and the cURL library, CurlFtpFS
+ has some features that distinguish it over other FTP filesystems:
+  * support for SSLv3 and TLSv1
+  * connecting through tunneling HTTP proxies
+  * automatic reconnection if the server times out
+  * conversion of absolute symlinks to point back into the FTP filesystem
