@@ -206,6 +206,56 @@ static void cancel_previous_multi()
   ftpfs.attached_to_multi = 0;  
 }
 
+//Code from stackoverflow
+char* replace(
+    char const * const original,
+    char const * const pattern,
+    char const * const replacement
+){
+	size_t const replen = strlen(replacement);
+	size_t const patlen = strlen(pattern);
+	size_t const orilen = strlen(original);
+
+	size_t patcnt = 0;
+	const char * oriptr;
+	const char * patloc;
+
+	// find how many times the pattern occurs in the original string
+	for (oriptr = original; patloc = strstr(oriptr, pattern); oriptr = patloc + patlen)
+		patcnt++;
+	{ 
+		// allocate memory for the new string
+		size_t const retlen = orilen + patcnt * (replen - patlen);
+		char * const returned = (char *) malloc( sizeof(char) * (retlen + 1) );
+
+		if (returned != NULL){
+			// copy the original string, 
+			// replacing all the instances of the pattern
+			char * retptr = returned;
+			for (oriptr = original; patloc = strstr(oriptr, pattern); oriptr = patloc + patlen){
+				size_t const skplen = patloc - oriptr;
+				// copy the section until the occurence of the pattern
+				strncpy(retptr, oriptr, skplen);
+				retptr += skplen;
+				// copy the replacement 
+				strncpy(retptr, replacement, replen);
+				retptr += replen;
+			}
+			// copy the rest of the string.
+			strcpy(retptr, oriptr);
+		}
+		return returned;
+	}
+}
+
+char* urlencode(char const * const original){
+	//Always process % first
+	char* tmp_percent = replace(original, "%", "%25");
+	char* tmpsharp = replace(tmp_percent, "#", "%23");
+	free(tmp_percent);
+	return(tmpsharp);
+}
+
 static int op_return(int err, char * operation)
 {
 	if(!err)
@@ -252,8 +302,10 @@ static size_t read_data(void *ptr, size_t size, size_t nmemb, void *data) {
     }\
   }while(0)
 
-static int ftpfs_getdir(const char* path, fuse_cache_dirh_t h,
+static int ftpfs_getdir(const char* path_tmp, fuse_cache_dirh_t h,
                         fuse_cache_dirfil_t filler) {
+
+  char * const path = urlencode(path_tmp);
   int err = 0;
   CURLcode curl_res;
   char* dir_path = get_fulldir_path(path);
@@ -280,10 +332,12 @@ static int ftpfs_getdir(const char* path, fuse_cache_dirh_t h,
 
   free(dir_path);
   buf_free(&buf);
+  free(path);
   return op_return(err, "ftpfs_getdir");
 }
 
-static int ftpfs_getattr(const char* path, struct stat* sbuf) {
+static int ftpfs_getattr(const char* path_tmp, struct stat* sbuf) {
+  char * const path = urlencode(path_tmp);
   int err;
   CURLcode curl_res;
   char* dir_path = get_dir_path(path);
@@ -304,13 +358,14 @@ static int ftpfs_getattr(const char* path, struct stat* sbuf) {
   }
   buf_null_terminate(&buf);
 
-  char* name = strrchr(path, '/');
+  char* name = strrchr(path_tmp, '/');
   ++name;
   err = parse_dir((char*)buf.p, dir_path + strlen(ftpfs.host) - 1,
                   name, sbuf, NULL, 0, NULL, NULL); 
 
   free(dir_path);
   buf_free(&buf);
+  free(path);
   if (err) return op_return(-ENOENT, "ftpfs_getattr");
   return 0;
 }
@@ -697,9 +752,10 @@ static __off_t test_size(const char* path)
 	return sbuf.st_size;
 }
 
-static int ftpfs_open_common(const char* path, mode_t mode,
+static int ftpfs_open_common(const char* path_tmp, mode_t mode,
                              struct fuse_file_info* fi) {
 	
+  char * const path = urlencode(path_tmp);
   char * flagsAsStr = flags_to_string(fi->flags);
   DEBUG(2, "ftpfs_open_common: %s\n", flagsAsStr);
   int err = 0;
@@ -805,7 +861,7 @@ static int ftpfs_open_common(const char* path, mode_t mode,
   fin:
   if (err)
     free_ftpfs_file(fh);
-
+  free(path);
   g_free(flagsAsStr);
   return op_return(err, "ftpfs_open");
 }
@@ -821,8 +877,9 @@ static int ftpfs_create(const char* path, mode_t mode,
 }
 #endif
 
-static int ftpfs_read(const char* path, char* rbuf, size_t size, off_t offset,
+static int ftpfs_read(const char* path_tmp, char* rbuf, size_t size, off_t offset,
                       struct fuse_file_info* fi) {
+  char * const path = urlencode(path_tmp);
   int ret;
   struct ftpfs_file *fh = get_ftpfs_file(fi);
   
@@ -843,6 +900,7 @@ static int ftpfs_read(const char* path, char* rbuf, size_t size, off_t offset,
     ret = size_read;
   }
   
+  free(path);
   if (ret<0) op_return(ret, "ftpfs_read");
   return ret;
 }
