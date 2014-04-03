@@ -6,7 +6,7 @@ http://curlftpfs.sourceforge.net/
 I just added some code the correctly handle filename which contains
 url-special chars (actually, just # and %) by url-encoding them :
  % -> %25
- # -> %23$
+ # -> %23
 Using that, curl will not translate them, and will target the correct
 filename.
 
