@@ -253,7 +253,9 @@ char* urlencode(char const * const original){
 	char* tmp_percent = replace(original, "%", "%25");
 	char* tmpsharp = replace(tmp_percent, "#", "%23");
 	free(tmp_percent);
-	return(tmpsharp);
+	char* tmpspace = replace(tmpsharp, " ", "%20");
+	free(tmpsharp);
+	return(tmpspace);
 }
 
 static int op_return(int err, char * operation)
