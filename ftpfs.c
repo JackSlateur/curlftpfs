@@ -9,6 +9,7 @@
 #include "config.h"
 
 #include <stdlib.h>
+#include <bsd/readpassphrase.h>
 #include <stdio.h>
 #include <ctype.h>
 #include <stdint.h>
@@ -1735,7 +1736,7 @@ static void checkpasswd(const char *kind, /* for what purpose */
   ptr = strchr(*userpwd, ':');
   if(!ptr) {
     /* no password present, prompt for one */
-    char *passwd;
+    char passwd[256];
     char prompt[256];
     size_t passwdlen;
     size_t userlen = strlen(*userpwd);
@@ -1747,7 +1748,10 @@ static void checkpasswd(const char *kind, /* for what purpose */
         kind, *userpwd);
 
     /* get password */
-    passwd = getpass(prompt);
+    if ( !readpassphrase( prompt, passwd, sizeof(passwd), RPP_ECHO_ON ) ) {
+      fprintf(stderr, "readpassphrase failed\n");
+      exit(1);
+    }
     passwdlen = strlen(passwd);
 
     /* extend the allocated memory area to fit the password too */

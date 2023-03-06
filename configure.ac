@@ -11,6 +11,7 @@ AC_PROG_LIBTOOL
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
 
 PKG_CHECK_MODULES(GLIB, [glib-2.0])
+PKG_CHECK_MODULES(BSD, [libbsd >= 0.2])
 PKG_CHECK_MODULES(FUSE, [fuse >= 2.2])
 
 LIBCURL_CHECK_CONFIG([yes], [7.17.0], [], [AC_MSG_ERROR(["libcurl not found"])])
@@ -18,8 +19,8 @@ if test "$libcurl_protocol_FTP" != yes; then
 	AC_MSG_ERROR(["We need libcurl with support for FTP protocol."])
 fi
 
-CFLAGS="$CFLAGS -Wall -W -Wno-sign-compare -D_REENTRANT $GLIB_CFLAGS $FUSE_CFLAGS $LIBCURL_CPPFLAGS"
-LIBS="$GLIB_LIBS $FUSE_LIBS $LIBCURL"
+CFLAGS="$CFLAGS -Wall -W -Wno-sign-compare -D_REENTRANT $GLIB_CFLAGS $FUSE_CFLAGS $LIBCURL_CPPFLAGS $LIBBSD_CFLAGS"
+LIBS="$GLIB_LIBS $FUSE_LIBS $LIBCURL $BSD_LIBS"
 
 have_fuse_opt_parse=no
 AC_CHECK_FUNC([fuse_opt_parse], [have_fuse_opt_parse=yes])
@@ -52,7 +53,7 @@ AC_FUNC_REALLOC
 AC_FUNC_SELECT_ARGTYPES
 AC_FUNC_STRFTIME
 AC_FUNC_UTIME_NULL
-AC_CHECK_FUNCS([ftruncate getpass memmove memset mkdir realpath rmdir select strchr strdup strrchr strstr strtoull utime])
+AC_CHECK_FUNCS([ftruncate readpassphrase memmove memset mkdir realpath rmdir select strchr strdup strrchr strstr strtoull utime])
 
 # Check for iconv
 AM_ICONV
