@@ -3,5 +3,5 @@
 # Remember to comment this before tagging for a release.
 #DEB_AUTO_UPDATE_DEBIAN_CONTROL := yes
 
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/autotools.mk
+%:
+	dh $@
