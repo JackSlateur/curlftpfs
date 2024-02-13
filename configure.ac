@@ -1,6 +1,6 @@
-AC_INIT(curlftpfs, 0.9.2)
+AC_INIT([curlftpfs],[0.9.2])
 AM_INIT_AUTOMAKE
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 
 AC_PROG_CC
 AC_PROG_CPP
@@ -25,7 +25,6 @@ have_fuse_opt_parse=no
 AC_CHECK_FUNC([fuse_opt_parse], [have_fuse_opt_parse=yes])
 
 # Checks for header files.
-AC_HEADER_STDC
 AC_CHECK_HEADERS([fcntl.h netinet/in.h stdint.h stdlib.h string.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
@@ -38,7 +37,7 @@ AC_TYPE_SIZE_T
 AC_CHECK_MEMBERS([struct stat.st_blksize])
 AC_STRUCT_ST_BLOCKS
 AC_CHECK_MEMBERS([struct stat.st_rdev])
-AC_HEADER_TIME
+AC_CHECK_HEADERS([sys/time.h])
 AC_STRUCT_TM
 #AC_TYPE_UINT32_T
 #AC_TYPE_UINT64_T
