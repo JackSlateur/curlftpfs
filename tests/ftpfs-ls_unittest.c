@@ -142,7 +142,7 @@ int main(int argc, char **argv) {
   list = "-rw-------    1 6700     2000     6561177600 Oct 15 2005 home.backup.tar\r\n";
   err = parse_dir(list, "/", "home.backup.tar", &sbuf, NULL, 0, NULL, NULL);
   assert(err == 0);
-  check(sbuf, 0, 0, S_IFREG|S_IRUSR|S_IWUSR, 1, 0, 0, 0, 6561177600LL, 4096, 4426192, "00:00:00 15/10/2005");
+  check(sbuf, 0, 0, S_IFREG|S_IRUSR|S_IWUSR, 1, 0, 0, 0, 6561177600LL, 4096, 12814800, "00:00:00 15/10/2005");
 
   return 0;
 }
