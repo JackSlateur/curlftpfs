@@ -256,7 +256,9 @@ char* urlencode(char const * const original){
 	free(tmp_percent);
 	char* tmpspace = replace(tmpsharp, " ", "%20");
 	free(tmpsharp);
-	return(tmpspace);
+	char* tmp_dollar = replace(tmpspace, "$", "%24");
+	free(tmpspace);
+	return(tmp_dollar);
 }
 
 static int op_return(int err, char * operation)
